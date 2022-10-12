@@ -9,6 +9,7 @@ class Canvas extends Component{
         super(props);
         this.stageRef = React.createRef();
         this.imageRef = React.createRef();
+        this.bboxStrokeWidth = 5;
     }
     componentDidMount(){
         this.sendStage();

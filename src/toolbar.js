@@ -83,7 +83,6 @@ class Toolbar extends Component{
                 if(e.target.style.color == 'black')
                 {
                     e.target.style.color = 'red';
-                    console.log(this.state.validAnns[category]);
                     var reasonValue = this.state.validAnns[category]['reason'];
                     var informativenessValue = this.state.validAnns[category]['importance'];
                     var sharingValue = this.state.validAnns[category]['sharing'];
@@ -123,7 +122,10 @@ class Toolbar extends Component{
     moveToNext = ()=>{
         this.currentImageIndex = (this.currentImageIndex + 1) % this.listLen;
         this.setState({currentImage: this.keys[this.currentImageIndex], 
-            annotatorList: this.imgAnnotationMap[this.keys[this.currentImageIndex]]});
+            annotatorList: this.imgAnnotationMap[this.keys[this.currentImageIndex]],
+            defaultBboxs: [], manualBbox: [], validList: [], validAnns: {}
+        });
+        this.props.toolCallback({defaultBboxs: []});
     }
     generateAnnotatorList = ()=>{
         var optionNum = 0;
@@ -148,8 +150,10 @@ class Toolbar extends Component{
                 var json = text.replaceAll("\'", "\"");
                 var ann = JSON.parse(json); // parse each row as json file
                 var defaultAnn= ann['defaultAnnotation'];
+                var manualAnn = ann['manualAnnotation'];
                 var validAnns = {};
                 var keys = Object.keys(defaultAnn);
+                var manualKeys = Object.keys(manualAnn);
                 for(var i = 0; i < keys.length; i++)
                 {
                     if (!defaultAnn[keys[i]]['ifNoPrivacy'])
@@ -158,13 +162,20 @@ class Toolbar extends Component{
                         validAnns[keys[i]] = defaultAnn[keys[i]];
                     }    
                 }
-                this.setState({validList: validList, validAnns: validAnns});
                 var validBbox = []
                 for(var i = 0; i < this.state.defaultBboxs.length; i++)
                 {
                     if(validList.includes(this.state.defaultBboxs[i]['category']))
                         validBbox.push(this.state.defaultBboxs[i]);
                 }
+                for(var i = 0; i < manualKeys.length; i++)
+                {
+                    var category = 'Extra Label ' + String(i);
+                    validBbox.push({'bbox': manualAnn[manualKeys[i]]['bbox'], 'category': category});
+                    validList.push(category);
+                    validAnns[category] = manualAnn[manualKeys[i]];
+                }
+                this.setState({validList: validList, validAnns: validAnns});
                 this.props.toolCallback({defaultBboxs: validBbox});
             }).then(() => {})
             .catch((error) => {
