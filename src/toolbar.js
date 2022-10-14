@@ -6,10 +6,10 @@ class Toolbar extends Component{
     {
         super(props);
         this.imgAnnotationMap = {};
-        this.bucketRoot = 'https://iui-privacy-dataset.s3.ap-northeast-1.amazonaws.com/';
+        this.bucketRoot = 'https://iui-visualization.s3.ap-northeast-1.amazonaws.com/';
         this.state = {currentImage: '', defaultBboxs: [], manualBbox: [], validList: [], 
         validAnns: {}, annotatorList: {'CrowdWorks': [], 'Prolific': []}, reasonValue: 0,
-        informativenessValue: 0, sharingValue: 0};
+        informativenessValue: 0, sharingValue: 0, ifLoadAnnotator: false};
         this.imgAnnotationMapLink = this.bucketRoot + 'img_annotation_map.json';
         fetch(this.imgAnnotationMapLink).then((res) => res.text()).then( (text) =>{
             text = text.replaceAll("\'", "\"");
@@ -34,7 +34,7 @@ class Toolbar extends Component{
         if(prevState.currentImage !== this.state.currentImage)
         {
             //fetch default label
-            var prefix = 'https://iui-privacy-dataset.s3.ap-northeast-1.amazonaws.com/';
+            var prefix = 'https://iui-visualization.s3.ap-northeast-1.amazonaws.com/';
             var image_URL = prefix + 'all_img/'+ this.state.currentImage + '.jpg';
             var label_URL = prefix + 'all_label/'+ this.state.currentImage + '_label';
             var ori_bboxs = [];
@@ -84,7 +84,7 @@ class Toolbar extends Component{
                 {
                     e.target.style.color = 'red';
                     var reasonValue = this.state.validAnns[category]['reason'];
-                    var informativenessValue = this.state.validAnns[category]['importance'];
+                    var informativenessValue = this.state.validAnns[category]['informative'];
                     var sharingValue = this.state.validAnns[category]['sharing'];
                     this.setState({reasonValue: reasonValue, informativenessValue: informativenessValue, sharingValue: sharingValue});
                 }
@@ -123,7 +123,17 @@ class Toolbar extends Component{
         this.currentImageIndex = (this.currentImageIndex + 1) % this.listLen;
         this.setState({currentImage: this.keys[this.currentImageIndex], 
             annotatorList: this.imgAnnotationMap[this.keys[this.currentImageIndex]],
-            defaultBboxs: [], manualBbox: [], validList: [], validAnns: {}
+            defaultBboxs: [], manualBbox: [], validList: [], validAnns: {}, ifLoadAnnotator: false
+        });
+        this.props.toolCallback({defaultBboxs: []});
+    }
+    moveToPrevious = ()=>{
+        if(this.currentImageIndex <= 0)
+            return;
+        this.currentImageIndex = (this.currentImageIndex - 1) % this.listLen;
+        this.setState({currentImage: this.keys[this.currentImageIndex], 
+            annotatorList: this.imgAnnotationMap[this.keys[this.currentImageIndex]],
+            defaultBboxs: [], manualBbox: [], validList: [], validAnns: {}, ifLoadAnnotator: false
         });
         this.props.toolCallback({defaultBboxs: []});
     }
@@ -139,15 +149,17 @@ class Toolbar extends Component{
         });
     }
     loadPrivacyAnns = (e)=>{
-        var prefix = 'https://iui-privacy-dataset.s3.ap-northeast-1.amazonaws.com/';
+        var prefix = 'https://iui-visualization.s3.ap-northeast-1.amazonaws.com/';
         var platform = document.getElementById('annotator').value.split('-')[0];
         var selectFile = document.getElementById('annotator').value.split('-')[1];
-        console.log(platform, selectFile);
-        var annotationURL = prefix + platform + '/crowdscouringlabel/' + selectFile;
+        var annotationURL = prefix + platform + '/labels/' + selectFile;
         var validList = []
         fetch(annotationURL).then( (res) => res.text() ) //read new label as text
             .then( (text) => {
+                var json = text.replaceAll("False", "false");
+                var json = text.replaceAll("True", "true");
                 var json = text.replaceAll("\'", "\"");
+                console.log(json)
                 var ann = JSON.parse(json); // parse each row as json file
                 var defaultAnn= ann['defaultAnnotation'];
                 var manualAnn = ann['manualAnnotation'];
@@ -175,7 +187,7 @@ class Toolbar extends Component{
                     validList.push(category);
                     validAnns[category] = manualAnn[manualKeys[i]];
                 }
-                this.setState({validList: validList, validAnns: validAnns});
+                this.setState({validList: validList, validAnns: validAnns, ifLoadAnnotator: true});
                 this.props.toolCallback({defaultBboxs: validBbox});
             }).then(() => {})
             .catch((error) => {
@@ -185,6 +197,7 @@ class Toolbar extends Component{
     render(){
         return(
             <div>
+                <button onClick={this.moveToPrevious}>Previous Image</button>
                 <button onClick={this.moveToNext}>Next Image</button>
                 <select id="annotator">
                 {
@@ -198,16 +211,25 @@ class Toolbar extends Component{
                     Load selected Annotation
                 </button>
                 {
-                        this.state.validList.length? 
-                        <div>
-                            <div>Privacy-threatening Content</div>
-                            <div><strong>Reason: </strong></div> <span> {this.reason[this.state.reasonValue]}</span>
-                            <div><strong>Informativeness:</strong> </div> <span>{this.intensity[this.state.informativenessValue]}</span>
-                            <div><strong>Sharing</strong></div> <span>{this.sharing[this.state.sharingValue]}</span>
-                            {this.createDefaultValidList()}
-                        </div>
-                        :
-                        <div>This Annotator did not annotate any privacy-threatening content in this image.</div>
+                    this.state.validList.length && this.state.ifLoadAnnotator? 
+                    <div>
+                        <div><strong>Crowdsourcing Platform:</strong></div> <span> {document.getElementById('annotator').value.split('-')[0]}</span>
+                        <br></br>
+                        <div><strong>Privacy-threatening Content</strong></div>
+                        <div><strong>Reason: </strong></div> <span> {this.reason[this.state.reasonValue]}</span>
+                        <div><strong>Informativeness:</strong> </div> <span>{this.intensity[this.state.informativenessValue]}</span>
+                        <div><strong>Sharing</strong></div> <span>{this.sharing[this.state.sharingValue]}</span>
+                        {this.createDefaultValidList()}
+                    </div>
+                    :
+                    <div></div>
+                            
+                }
+                {
+                    this.state.validList.length == 0 && this.state.ifLoadAnnotator?
+                    <div>This Annotator did not annotate any privacy-threatening content in this image.</div>
+                    :
+                    <div></div>
                 }
             </div>
         );
