@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/iui_dataset_visualization/static/css/main.073c9b0a.css",
-    "main.js": "/iui_dataset_visualization/static/js/main.0227bedd.js",
+    "main.js": "/iui_dataset_visualization/static/js/main.f3bed9b6.js",
     "static/js/787.efa2a8c5.chunk.js": "/iui_dataset_visualization/static/js/787.efa2a8c5.chunk.js",
     "index.html": "/iui_dataset_visualization/index.html",
     "main.073c9b0a.css.map": "/iui_dataset_visualization/static/css/main.073c9b0a.css.map",
-    "main.0227bedd.js.map": "/iui_dataset_visualization/static/js/main.0227bedd.js.map",
+    "main.f3bed9b6.js.map": "/iui_dataset_visualization/static/js/main.f3bed9b6.js.map",
     "787.efa2a8c5.chunk.js.map": "/iui_dataset_visualization/static/js/787.efa2a8c5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.0227bedd.js"
+    "static/js/main.f3bed9b6.js"
   ]
 }
