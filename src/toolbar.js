@@ -156,10 +156,7 @@ class Toolbar extends Component{
         var validList = []
         fetch(annotationURL).then( (res) => res.text() ) //read new label as text
             .then( (text) => {
-                var json = text.replaceAll("False", "false");
-                var json = text.replaceAll("True", "true");
                 var json = text.replaceAll("\'", "\"");
-                console.log(json)
                 var ann = JSON.parse(json); // parse each row as json file
                 var defaultAnn= ann['defaultAnnotation'];
                 var manualAnn = ann['manualAnnotation'];
@@ -201,10 +198,7 @@ class Toolbar extends Component{
                 <button onClick={this.moveToNext}>Next Image</button>
                 <select id="annotator">
                 {
-                    this.state.annotatorList['CrowdWorks'].length || this.state.annotatorList['Prolific'].length?
                     this.generateAnnotatorList()
-                    :
-                    <option>None Annotator Yet</option>
                 }
                 </select>
                 <button onClick={this.loadPrivacyAnns}>
