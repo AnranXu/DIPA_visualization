@@ -212,7 +212,7 @@ class Toolbar extends Component{
                         <div><strong>Privacy-threatening Content</strong></div>
                         <div><strong>Reason: </strong></div> <span> {this.reason[this.state.reasonValue]}</span>
                         <div><strong>Informativeness:</strong> </div> <span>{this.intensity[this.state.informativenessValue]}</span>
-                        <div><strong>Sharing</strong></div> <span>{this.sharing[this.state.sharingValue]}</span>
+                        <div><strong>Maximum Sharing Scope if Photo Owener:</strong></div> <span>{this.sharing[this.state.sharingValue]}</span>
                         {this.createDefaultValidList()}
                     </div>
                     :
