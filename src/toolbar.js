@@ -84,7 +84,7 @@ class Toolbar extends Component{
                 {
                     e.target.style.color = 'red';
                     var reasonValue = this.state.validAnns[category]['reason'];
-                    var informativenessValue = this.state.validAnns[category]['informative'];
+                    var informativenessValue = this.state.validAnns[category]['informativeness'];
                     var sharingValue = this.state.validAnns[category]['sharing'];
                     this.setState({reasonValue: reasonValue, informativenessValue: informativenessValue, sharingValue: sharingValue});
                 }
