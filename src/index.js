@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Grid } from '@mui/material';
+import Main from './Main';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Grid container>
+      <Grid xs={6}>
+        <Main />
+      </Grid>
+      <Grid xs={6}>
+        <>
+          hogehoge
+        </>
+      </Grid>
+    </Grid>
   </React.StrictMode>
 );
 
