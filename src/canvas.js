@@ -7,7 +7,8 @@ import { Box, styled } from "@mui/material";
 
 const Container = styled(Box)(() => ({
     left: "0px",
-    padding: "0 20px"
+    // padding: "0 20px",
+    backgroundColor: "rgba(100, 100, 100, 0.2)",
 }))
 
 
@@ -47,8 +48,7 @@ class Canvas extends Component {
     render() {
         return (
             <Container id="canvasContainer">
-                <Stage width={window.innerWidth * 0.5} height={window.innerHeight * 0.85} ref={this.stageRef}>
-                    {/* <Stage width={window.innerWidth} height={window.innerHeight} ref={this.stageRef}> */}
+                <Stage width={window.innerWidth * 0.5 - 60} height={window.innerHeight * 0.70} ref={this.stageRef}>
                     <Layer>
                         <URLImage src={this.props.imageURL} setRef={this.imageRef} />
                         {this.props.defaultBboxs.length ? this.createDefaultBboxs()
@@ -57,7 +57,7 @@ class Canvas extends Component {
                         }
                     </Layer>
                 </Stage>
-            </Container>
+            </Container >
         );
     }
 }

@@ -4,6 +4,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Grid } from '@mui/material';
 import Main from './Main';
+import DescriptionPanel from './components/DescriptionPanel';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,9 +14,7 @@ root.render(
         <Main />
       </Grid>
       <Grid xs={6}>
-        <>
-          hogehoge
-        </>
+        <DescriptionPanel />
       </Grid>
     </Grid>
   </React.StrictMode>

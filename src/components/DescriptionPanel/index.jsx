@@ -13,7 +13,7 @@ const Container = styled(Box)({
     padding: "20px 40px",
 });
 
-const LoadButton = (props) => {
+const DescriptionPanel = (props) => {
     return (
         <Container>
             <Typography variant="h6">
@@ -26,4 +26,4 @@ const LoadButton = (props) => {
     );
 };
 
-export default LoadButton;
+export default DescriptionPanel;

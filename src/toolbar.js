@@ -1,6 +1,6 @@
 import { Component } from "react";
 import React from "react";
-import { Stack } from "@mui/material";
+import { Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import TransitionButton from "./components/TransitionButton";
 import LoadButton from "./components/LoadButton";
 
@@ -10,6 +10,7 @@ class Toolbar extends Component {
         this.imgAnnotationMap = {};
         this.bucketRoot = 'https://iui-visualization.s3.ap-northeast-1.amazonaws.com/';
         this.state = {
+            selectedAnnotator: -1,
             currentImage: '', defaultBboxs: [], manualBbox: [], validList: [],
             validAnns: {}, annotatorList: { 'CrowdWorks': [], 'Prolific': [] }, reasonValue: 0,
             informativenessValue: 0, sharingValue: 0, ifLoadAnnotator: false
@@ -118,6 +119,7 @@ class Toolbar extends Component {
         }
     }
     moveToNext = () => {
+        this.setState({ selectedAnnotator: -1 });
         this.currentImageIndex = (this.currentImageIndex + 1) % this.listLen;
         this.setState({
             currentImage: this.keys[this.currentImageIndex],
@@ -129,6 +131,7 @@ class Toolbar extends Component {
     moveToPrevious = () => {
         if (this.currentImageIndex <= 0)
             return;
+        this.setState({ selectedAnnotator: -1 });
         this.currentImageIndex = (this.currentImageIndex - 1) % this.listLen;
         this.setState({
             currentImage: this.keys[this.currentImageIndex],
@@ -139,20 +142,34 @@ class Toolbar extends Component {
     }
     generateAnnotatorList = () => {
         var optionNum = 0;
-        return Object.keys(this.state.annotatorList).map((platfrom, i) => {
+        return Object.keys(this.state.annotatorList).map((platfrom, index) => {
             return this.state.annotatorList[platfrom].map((annotation, i) => {
                 optionNum += 1
+                const index = optionNum
                 return (
-                    <option value={platfrom + '-' + annotation} >Annotator {optionNum}</option>
+                    <ToggleButton
+                        fullWidth
+                        value={platfrom + '-' + annotation}
+                        onClick={() => {
+                            document.getElementById("annotator").value = platfrom + '-' + annotation;
+                            this.loadPrivacyAnns()
+                            this.setState({ selectedAnnotator: index })
+                        }}
+                    >
+                        <Typography variant="h6">
+                            Annotator {optionNum}
+                        </Typography>
+                    </ToggleButton>
+                    // <option value={platfrom + '-' + annotation} >Annotator {optionNum}</option>
                 )
             });
         });
     }
     loadPrivacyAnns = (e) => {
         var prefix = 'https://iui-visualization.s3.ap-northeast-1.amazonaws.com/';
+        console.log(document.getElementById("annotator").value)
         var platform = document.getElementById('annotator').value.split('-')[0];
         var selectFile = document.getElementById('annotator').value.split('-')[1];
-        console.log(document.getElementById("annotator").value)
         var annotationURL = prefix + platform + '/labels/' + selectFile;
         var validList = []
         fetch(annotationURL).then((res) => res.text()) //read new label as text
@@ -190,17 +207,17 @@ class Toolbar extends Component {
     }
     render() {
         return (
-            <Stack width="100%">
-                <Stack direction="row" padding="0 50px" justifyContent="space-between" sx={{ backgroundColor: "green" }}>
+            <Stack width="100%" gap="15px">
+                <ToggleButtonGroup id="annotator">
+                    <Stack direction="row" width="100%" justifyContent="center" gap="20px">
+                        {this.generateAnnotatorList()}
+                    </Stack>
+                </ToggleButtonGroup>
+                <Stack direction="row" padding="0 50px" width="auto" justifyContent="space-between" alignItems="center">
                     <TransitionButton onClick={this.moveToPrevious} transType={"prev"} />
-                    <LoadButton onClick={this.loadPrivacyAnns} />
+                    <LoadButton annotator={this.state.selectedAnnotator} />
                     <TransitionButton onClick={this.moveToNext} transType={"next"} />
                 </Stack>
-                <select id="annotator">
-                    {
-                        this.generateAnnotatorList()
-                    }
-                </select>
                 {
                     this.state.validList.length && this.state.ifLoadAnnotator ?
                         <div>

@@ -5,17 +5,18 @@ import Canvas from "./canvas";
 import React from 'react';
 import { Stack } from '@mui/system';
 import { styled } from '@mui/material';
+import { RGBA } from 'konva/lib/filters/RGBA';
 
 const Container = styled(Stack)(({ theme }) => ({
   flexDirection: "column",
-  height: "90vh",
+  // height: "80vh",
 
   justifyContent: "space-between",
   textAlign: "flex-start",
   alignItems: "flex-start",
 
-  gap: "0px",
-  padding: "20px"
+  gap: "20px",
+  padding: "30px"
 }))
 
 class Main extends Component {
