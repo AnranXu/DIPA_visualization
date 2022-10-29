@@ -2,21 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { Grid } from '@mui/material';
 import Main from './Main';
-import DescriptionPanel from './components/DescriptionPanel';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Grid container>
-      <Grid xs={6}>
-        <Main />
-      </Grid>
-      <Grid xs={6}>
-        <DescriptionPanel />
-      </Grid>
-    </Grid>
+    <Main />
   </React.StrictMode>
 );
 

@@ -1,4 +1,4 @@
-import { Box, IconButton, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import React from "react";
 
 // props

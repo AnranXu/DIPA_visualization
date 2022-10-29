@@ -1,14 +1,18 @@
 import { Component } from "react";
 import React from "react";
 import {
+    Box,
+    Button,
     Stack,
     ToggleButton,
     ToggleButtonGroup,
     Typography,
 } from "@mui/material";
-import TransitionButton from "../TransitionButton";
+import TransitionButton from "./components/TransitionButton";
+import DetailSection from "./components/DetailSection";
+import Informativeness from "./components/Infomativeness";
 
-class DescriptionPanel extends Component {
+class Toolbar extends Component {
     constructor(props) {
         super(props);
         this.imgAnnotationMap = {};
@@ -110,18 +114,51 @@ class DescriptionPanel extends Component {
         }
     }
     createDefaultValidList = () => {
-        //generate a list of valid bbox info to canvas.js
+        // generate a list of valid bbox info to canvas.js
         return this.state.validList.map((label, i) => (
-            <div key={"defaultLabelList-" + label}>
-                <button
-                    style={{ color: "black" }}
-                    onClick={this.showPrivacyInfo}
+            <Box
+                sx={{
+                    border: "2px solid rgba(0, 0, 0, 0.2)",
+                    borderRadius: "5px",
+                    boxShadow: "2px 2px 1px 0px rgba(0,0,0,0.2)",
+                }}
+                textAlign="left"
+            >
+                <Button
+                    onClick={(e) => {
+                        this.showPrivacyInfo(e);
+                    }}
                     id={"defaultLabelButton-" + label}
                     key={"defaultLabelButton-" + label}
+                    fullWidth
+                    sx={{
+                        justifyContent: "flex-start",
+                        fontSize: "30px",
+                        color: "grey",
+                        padding: "10px 25px",
+                    }}
                 >
                     {label}
-                </button>
-            </div>
+                </Button>
+
+                <Stack
+                    id={"isDetailDisplayed-" + label}
+                    spacing="20px"
+                    padding="0px 25px 20px 25px"
+                    sx={{ display: "none" }}
+                >
+                    <hr style={{ marginTop: "-15px" }}></hr>
+                    <DetailSection
+                        title={"Reason"}
+                        text={this.reason[this.state.reasonValue]}
+                    />
+                    <Informativeness value={2} />
+                    <DetailSection
+                        title={"Sharing"}
+                        text={this.sharing[this.state.sharingValue]}
+                    />
+                </Stack>
+            </Box>
         ));
     };
     showPrivacyInfo = (e) => {
@@ -131,29 +168,25 @@ class DescriptionPanel extends Component {
             var defaultLabelButton = document.getElementById(
                 "defaultLabelButton-" + label
             );
+            var privacyDetail = document.getElementById(
+                "isDetailDisplayed-" + label
+            );
+
             if (e.target.id === "defaultLabelButton-" + label) {
-                if (e.target.style.color === "black") {
-                    e.target.style.color = "red";
-                    var reasonValue = this.state.validAnns[category]["reason"];
-                    var informativenessValue =
-                        this.state.validAnns[category]["informative"];
-                    var sharingValue =
-                        this.state.validAnns[category]["sharing"];
-                    this.setState({
-                        reasonValue: reasonValue,
-                        informativenessValue: informativenessValue,
-                        sharingValue: sharingValue,
-                    });
-                } else {
-                    e.target.style.color = "black";
-                    this.setState({
-                        reasonValue: 0,
-                        informativeValue: 0,
-                        sharingValue: 0,
-                    });
-                }
+                privacyDetail.style.display = "block";
+                e.target.style.color = "black";
+                var reasonValue = this.state.validAnns[category]["reason"];
+                var informativenessValue =
+                    this.state.validAnns[category]["informative"];
+                var sharingValue = this.state.validAnns[category]["sharing"];
+                this.setState({
+                    reasonValue: reasonValue,
+                    informativenessValue: informativenessValue,
+                    sharingValue: sharingValue,
+                });
             } else {
-                defaultLabelButton.style.color = "black";
+                defaultLabelButton.style.color = "grey";
+                privacyDetail.style.display = "none";
             }
         }
         if (this.props.stageRef) {
@@ -213,11 +246,12 @@ class DescriptionPanel extends Component {
                     <ToggleButton
                         fullWidth
                         value={platfrom + "-" + annotation}
-                        onClick={() => {
+                        onClick={(e) => {
                             document.getElementById("annotator").value =
                                 platfrom + "-" + annotation;
                             this.loadPrivacyAnns();
                             this.setState({ selectedAnnotator: index });
+                            this.showPrivacyInfo(e);
                         }}
                         sx={{
                             backgroundColor:
@@ -238,7 +272,6 @@ class DescriptionPanel extends Component {
                             Annotator {optionNum}
                         </Typography>
                     </ToggleButton>
-                    // <option value={platfrom + '-' + annotation} >Annotator {optionNum}</option>
                 );
             });
         });
@@ -301,81 +334,62 @@ class DescriptionPanel extends Component {
     };
     render() {
         return (
-            <Stack width="100%" gap="15px">
-                <Stack
-                    direction="row"
-                    padding="0 50px"
-                    width="auto"
-                    justifyContent="space-between"
-                    alignItems="center"
-                >
-                    <TransitionButton
-                        onClick={this.moveToPrevious}
-                        transType={"prev"}
-                    />
-                    {/* <LoadButton annotator={this.state.selectedAnnotator} /> */}
-                    <TransitionButton
-                        onClick={this.moveToNext}
-                        transType={"next"}
-                    />
-                </Stack>
-                <ToggleButtonGroup id="annotator">
+            <>
+                <Stack width="calc(100% - 60px)" gap="15px" padding="0 30px">
                     <Stack
                         direction="row"
-                        width="100%"
-                        justifyContent="center"
-                        gap="20px"
+                        padding="0 50px"
+                        width="auto"
+                        justifyContent="space-between"
+                        alignItems="center"
                     >
-                        {this.generateAnnotatorList()}
+                        <TransitionButton
+                            onClick={this.moveToPrevious}
+                            transType={"prev"}
+                        />
+                        <TransitionButton
+                            onClick={this.moveToNext}
+                            transType={"next"}
+                        />
                     </Stack>
-                </ToggleButtonGroup>
-                {this.state.validList.length && this.state.ifLoadAnnotator ? (
-                    <div>
-                        <div>
-                            <strong>Crowdsourcing Platform:</strong>
-                        </div>{" "}
-                        <span>
-                            {" "}
-                            {
-                                document
-                                    .getElementById("annotator")
-                                    .value.split("-")[0]
-                            }
-                        </span>
-                        <br></br>
-                        <div>
-                            <strong>Privacy-threatening Content</strong>
-                        </div>
-                        <div>
-                            <strong>Reason: </strong>
-                        </div>{" "}
-                        <span> {this.reason[this.state.reasonValue]}</span>
-                        <div>
-                            <strong>Informativeness:</strong>{" "}
-                        </div>{" "}
-                        <span>
-                            {this.intensity[this.state.informativenessValue]}
-                        </span>
-                        <div>
-                            <strong>Sharing</strong>
-                        </div>{" "}
-                        <span>{this.sharing[this.state.sharingValue]}</span>
-                        {this.createDefaultValidList()}
-                    </div>
-                ) : (
-                    <div></div>
-                )}
-                {this.state.validList.length === 0 &&
-                this.state.ifLoadAnnotator ? (
-                    <div>
-                        This Annotator did not annotate any privacy-threatening
-                        content in this image.
-                    </div>
-                ) : (
-                    <div></div>
-                )}
-            </Stack>
+                    <ToggleButtonGroup id="annotator">
+                        <Stack
+                            direction="row"
+                            width="100%"
+                            justifyContent="center"
+                            gap="20px"
+                        >
+                            {this.generateAnnotatorList()}
+                        </Stack>
+                    </ToggleButtonGroup>
+                </Stack>
+                <Stack
+                    position="absolute"
+                    left="55vw"
+                    top="0"
+                    padding="30px 20px"
+                    width="calc(45vw - 40px)"
+                >
+                    {this.state.validList.length &&
+                    this.state.ifLoadAnnotator ? (
+                        <Stack width="100%" gap="20px">
+                            {this.createDefaultValidList()}
+                        </Stack>
+                    ) : (
+                        <div></div>
+                    )}
+                    {this.state.validList.length === 0 &&
+                    this.state.ifLoadAnnotator ? (
+                        <Typography variant="h6">
+                            This Annotator did not annotate any
+                            privacy-threatening content in this image.
+                        </Typography>
+                    ) : (
+                        <div></div>
+                    )}
+                </Stack>
+            </>
         );
     }
 }
-export default DescriptionPanel;
+export default Toolbar;
