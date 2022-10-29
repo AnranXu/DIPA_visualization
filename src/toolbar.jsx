@@ -152,7 +152,9 @@ class Toolbar extends Component {
                         title={"Reason"}
                         text={this.reason[this.state.reasonValue]}
                     />
-                    <Informativeness value={2} />
+                    <Informativeness
+                        value={this.state.informativenessValue - 4}
+                    />
                     <DetailSection
                         title={"Sharing"}
                         text={this.sharing[this.state.sharingValue]}
@@ -177,7 +179,7 @@ class Toolbar extends Component {
                 e.target.style.color = "black";
                 var reasonValue = this.state.validAnns[category]["reason"];
                 var informativenessValue =
-                    this.state.validAnns[category]["informative"];
+                    this.state.validAnns[category]["informativeness"];
                 var sharingValue = this.state.validAnns[category]["sharing"];
                 this.setState({
                     reasonValue: reasonValue,

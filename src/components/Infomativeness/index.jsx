@@ -12,7 +12,7 @@ const getText = (value) => {
         secondWord = "Uninformative";
     } else if (value === 0) {
         secondWord = "Neutral";
-    } else {
+    } else if (value > 0) {
         secondWord = "Informative";
     }
 
@@ -30,6 +30,7 @@ const getText = (value) => {
 
 const Informativeness = (props) => {
     const values = [-3, -2, -1, 0, 1, 2, 3];
+    console.log(props.value);
 
     return (
         <Stack>
