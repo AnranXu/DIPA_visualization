@@ -40,6 +40,7 @@ class Toolbar extends Component {
                 this.keys = Object.keys(this.imgAnnotationMap);
                 this.currentImageIndex = -1;
                 this.listLen = this.keys.length;
+                this.moveToNext();
             });
         this.reason = [
             "",
