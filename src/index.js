@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import Main from './Main';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+document.title = "DIPA Visualization";
 root.render(
   <React.StrictMode>
     <Main />
