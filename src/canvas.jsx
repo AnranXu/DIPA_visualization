@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Stage, Layer, Rect } from "react-konva";
-import URLImage from "./urlimage.js";
+import URLImage from "./urlImage.js";
 import React from "react";
 import { Box, styled } from "@mui/material";
 
