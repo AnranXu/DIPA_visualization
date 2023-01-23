@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/iui_dataset_visualization/static/css/main.073c9b0a.css",
-    "main.js": "/iui_dataset_visualization/static/js/main.3666817f.js",
-    "static/js/787.efa2a8c5.chunk.js": "/iui_dataset_visualization/static/js/787.efa2a8c5.chunk.js",
-    "index.html": "/iui_dataset_visualization/index.html",
-    "main.073c9b0a.css.map": "/iui_dataset_visualization/static/css/main.073c9b0a.css.map",
-    "main.3666817f.js.map": "/iui_dataset_visualization/static/js/main.3666817f.js.map",
-    "787.efa2a8c5.chunk.js.map": "/iui_dataset_visualization/static/js/787.efa2a8c5.chunk.js.map"
+    "main.css": "/DIPA_visualization/static/css/main.073c9b0a.css",
+    "main.js": "/DIPA_visualization/static/js/main.13cb2c79.js",
+    "static/js/787.08e91ee0.chunk.js": "/DIPA_visualization/static/js/787.08e91ee0.chunk.js",
+    "index.html": "/DIPA_visualization/index.html",
+    "main.073c9b0a.css.map": "/DIPA_visualization/static/css/main.073c9b0a.css.map",
+    "main.13cb2c79.js.map": "/DIPA_visualization/static/js/main.13cb2c79.js.map",
+    "787.08e91ee0.chunk.js.map": "/DIPA_visualization/static/js/787.08e91ee0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.3666817f.js"
+    "static/js/main.13cb2c79.js"
   ]
 }
