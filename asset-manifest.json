@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/DIPA_visualization/static/css/main.073c9b0a.css",
-    "main.js": "/DIPA_visualization/static/js/main.f97e410b.js",
+    "main.js": "/DIPA_visualization/static/js/main.b0e34f12.js",
     "static/js/787.08e91ee0.chunk.js": "/DIPA_visualization/static/js/787.08e91ee0.chunk.js",
     "index.html": "/DIPA_visualization/index.html",
     "main.073c9b0a.css.map": "/DIPA_visualization/static/css/main.073c9b0a.css.map",
-    "main.f97e410b.js.map": "/DIPA_visualization/static/js/main.f97e410b.js.map",
+    "main.b0e34f12.js.map": "/DIPA_visualization/static/js/main.b0e34f12.js.map",
     "787.08e91ee0.chunk.js.map": "/DIPA_visualization/static/js/787.08e91ee0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.f97e410b.js"
+    "static/js/main.b0e34f12.js"
   ]
 }
