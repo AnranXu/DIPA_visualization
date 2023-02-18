@@ -1,5 +1,5 @@
 {
-  "homepage": "http://anranxu.github.io/DIPA_visualization/#",
+  "homepage": "https://anranxu.github.io/DIPA_visualization/",
   "name": "DIPA_visualization",
   "version": "0.1.0",
   "private": true,
@@ -17,7 +17,7 @@
     "react-dom": "^18.2.0",
     "react-konva": "^18.2.2",
     "react-router": "^6.8.1",
-    "react-router-dom": "^5.3.4",
+    "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -26,9 +26,10 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
+    "postbuild": "cp build/index.html build/404.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sync": "aws s3 sync build/ s3://iui-submission"
+    "sync": "aws s3 sync build/ s3://dipa-download"
   },
   "eslintConfig": {
     "extends": [

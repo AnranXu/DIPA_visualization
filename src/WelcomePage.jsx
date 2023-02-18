@@ -9,6 +9,7 @@ import ArticleIcon from "@mui/icons-material/Article";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 
+
 const Wrapper = styled(Stack)(({ theme }) => ({
     flexDirection: "column",
     justifyContent: "flex-start",
@@ -74,7 +75,7 @@ const WelcomePage = () => {
             },
             {
                 title: "Visualization",
-                link: "/DIPA_visualization/#/visualization",
+                link: "/DIPA_visualization/visualization",
                 icon: <SmartDisplayIcon />,
             },
         ],
