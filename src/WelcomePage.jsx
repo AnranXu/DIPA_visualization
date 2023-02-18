@@ -44,12 +44,12 @@ const WelcomePage = () => {
     // Add Authors
     const authorList = useMemo(
         () => [
-            { name: "Anran Xu", link: "https://anranxu.com" },
-            { name: "Zhongyi Zhou", link: "https://zhongyizhou.net" },
-            { name: "Kakeru Miyazaki", link: "https://kakeru-miyazaki.github.io/kakekakemiya/index.html" },
-            { name: 'Ryo Yoshikawa', link: "https://r44111.net/"},
-            { name: 'Simo Hosio', link: "https://simohosio.com/"},
-            { name: 'Koji Yatani', link: 'https://iis-lab.org/member/koji-yatani/'}
+            { name: "Anran Xu [1]", link: "https://anranxu.com" },
+            { name: "Zhongyi Zhou [1]", link: "https://zhongyizhou.net" },
+            { name: "Kakeru Miyazaki [1]", link: "https://kakeru-miyazaki.github.io/kakekakemiya/index.html" },
+            { name: 'Ryo Yoshikawa [1]', link: "https://r44111.net/"},
+            { name: 'Simo Hosio [2]', link: "https://simohosio.com/"},
+            { name: 'Koji Yatani [1]', link: 'https://iis-lab.org/member/koji-yatani/'}
         ],
         []
     );
@@ -114,7 +114,7 @@ const WelcomePage = () => {
                         )}
                     </Stack>
                     <Typography variant="h4">
-                        The University of Tokyo
+                        The University of Tokyo [1], University of Oulu [2]
                     </Typography>
                 </SubContainer>
 
