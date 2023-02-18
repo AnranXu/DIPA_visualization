@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Link } from 'react-router-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Main from './Main';
@@ -24,14 +24,14 @@ document.title = "DIPA Visualization";
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Route exact path='/DIPA_visualization/'>
+      <HashRouter>
+        <Route path='/'>
           <WelcomePage />
         </Route>
-        <Route exact path='/DIPA_visualization/visualization'>
+        <Route path='/visualization'>
           <Main />
         </Route>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   </React.StrictMode>
 
