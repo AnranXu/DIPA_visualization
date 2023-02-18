@@ -25,10 +25,10 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Route exact path='/iui_dataset_visualization/'>
+        <Route exact path='/DIPA_visualization/'>
           <WelcomePage />
         </Route>
-        <Route exact path='/iui_dataset_visualization/visualization'>
+        <Route exact path='/DIPA_visualization/visualization'>
           <Main />
         </Route>
       </BrowserRouter>

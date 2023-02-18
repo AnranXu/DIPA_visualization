@@ -45,7 +45,7 @@ const WelcomePage = () => {
         () => [
             { name: "Anran Xu", link: "https://anranxu.com" },
             { name: "Zhongyi Zhou", link: "https://zhongyizhou.net" },
-            { name: "Kakeru Miyazaki", link: "" },
+            { name: "Kakeru Miyazaki", link: "https://kakeru-miyazaki.github.io/kakekakemiya/index.html" },
             { name: 'Ryo Yoshikawa', link: "https://r44111.net/"},
             { name: 'Simo Hosio', link: "https://simohosio.com/"},
             { name: 'Koji Yatani', link: 'https://iis-lab.org/member/koji-yatani/'}
@@ -74,7 +74,7 @@ const WelcomePage = () => {
             },
             {
                 title: "Visualization",
-                link: "/iui_dataset_visualization/visualization",
+                link: "/DIPA_visualization/visualization",
                 icon: <SmartDisplayIcon />,
             },
         ],
