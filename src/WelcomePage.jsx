@@ -43,9 +43,12 @@ const WelcomePage = () => {
     // Add Authors
     const authorList = useMemo(
         () => [
-            { name: "Anran Xu", link: "https://google.com" },
-            { name: "Author1 With Link", link: "https://google.com" },
-            { name: "Author2 Without Link" },
+            { name: "Anran Xu", link: "https://anranxu.com" },
+            { name: "Zhongyi Zhou", link: "https://zhongyizhou.net" },
+            { name: "Kakeru Miyazaki", link: "" },
+            { name: 'Ryo Yoshikawa', link: "https://r44111.net/"},
+            { name: 'Simo Hosio', link: "https://simohosio.com/"},
+            { name: 'Koji Yatani', link: 'https://iis-lab.org/member/koji-yatani/'}
         ],
         []
     );
@@ -66,12 +69,12 @@ const WelcomePage = () => {
             },
             {
                 title: "Dataset",
-                link: "https://google.com",
+                link: "https://dipa-download.s3.ap-northeast-1.amazonaws.com/dataset.zip",
                 icon: <CollectionsIcon />,
             },
             {
                 title: "Visualization",
-                link: "/iui_dataset_visualization",
+                link: "/iui_dataset_visualization/visualization",
                 icon: <SmartDisplayIcon />,
             },
         ],
@@ -119,7 +122,7 @@ const WelcomePage = () => {
                     </Typography>
                 </SubContainer>
 
-                <Typography variant="h4">IUI 2023</Typography>
+                <Typography variant="h4">IUI 2023 Open Science track</Typography>
             </Container>
 
             <Stack direction="row" gap={3}>
