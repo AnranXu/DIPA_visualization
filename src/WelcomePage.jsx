@@ -64,11 +64,6 @@ const WelcomePage = () => {
                 icon: <ArticleIcon />,
             },
             {
-                title: "GitHub",
-                link: "https://github.com/AnranXu/DIPA_visualization",
-                icon: <GitHubIcon />,
-            },
-            {
                 title: "Dataset",
                 link: "https://dipa-download.s3.ap-northeast-1.amazonaws.com/dataset.zip",
                 icon: <CollectionsIcon />,
