@@ -60,7 +60,7 @@ const WelcomePage = () => {
         () => [
             {
                 title: "Paper",
-                link: "https://google.com",
+                link: "https://doi.org/10.1145/3581754.3584176",
                 icon: <ArticleIcon />,
             },
             {
