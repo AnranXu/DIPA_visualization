@@ -9,6 +9,9 @@ import ArticleIcon from "@mui/icons-material/Article";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const Wrapper = styled(Stack)(({ theme }) => ({
     flexDirection: "column",
@@ -21,14 +24,14 @@ const Wrapper = styled(Stack)(({ theme }) => ({
     padding: theme.spacing(10, 20),
 }));
 
-const Container = styled(Stack)(({ theme }) => ({
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    textAlign: "flex-start",
-    alignItems: "center",
+// const Container = styled(Stack)(({ theme }) => ({
+//     flexDirection: "column",
+//     justifyContent: "flex-start",
+//     textAlign: "flex-start",
+//     alignItems: "center",
 
-    gap: theme.spacing(3),
-}));
+//     gap: theme.spacing(3),
+// }));
 
 const SubContainer = styled(Stack)(({ theme }) => ({
     flexDirection: "column",
@@ -78,17 +81,26 @@ const WelcomePage = () => {
     );
 
     return (
-        <Wrapper>
+            <Wrapper>
             <Container>
-                <Typography variant="h3" fontWeight="bold" textAlign="center">
-                    DIPA: An Image Dataset with Cross-cultural Privacy Concern
-                    Annotations
-                </Typography>
-
-                <SubContainer>
-                    <Stack direction="row" gap={3}>
-                        {authorList.map((author) =>
-                            author["link"] ? (
+                <Row>
+                    <Col>
+                        <Typography variant="h3" fontWeight="bold" textAlign="center" sx={{alignItems: "center"}}>
+                            DIPA: An Image Dataset with Cross-cultural Privacy Concern
+                            Annotations
+                        </Typography>
+                    </Col>
+                    
+                </Row>
+                <br></br>
+                <br></br>
+                <Row>
+                    <SubContainer>
+                    <Stack direction="row" justifyContent='center' gap={3} sx={{ flexWrap: 'wrap' }}>
+                    {authorList.map((author) =>
+                        author["link"] ? (
+                            <Col xs ={4} sm={2}>
+                            
                                 <Link
                                     key={author.name}
                                     href={author.link}
@@ -102,41 +114,51 @@ const WelcomePage = () => {
                                         {author.name}
                                     </Typography>
                                 </Link>
-                            ) : (
-                                <Typography
-                                    key={author.name}
-                                    variant="h4"
-                                    fontWeight="medium"
-                                >
-                                    {author.name}
-                                </Typography>
-                            )
-                        )}
+                            </Col>
+                        ) : (
+                            <Typography
+                                key={author.name}
+                                variant="h4"
+                                fontWeight="medium"
+                            >
+                                {author.name}
+                            </Typography>
+                        )
+                    )}
+                        </Stack>
+                    </SubContainer>
+                    <br></br>
+                    <SubContainer>
+                        <Typography variant="h4">
+                            The University of Tokyo [1], University of Oulu [2]
+                        </Typography>
+                        <Typography variant="h4">IUI 2023 Open Science track</Typography>
+                    </SubContainer>
+                </Row>
+                <br></br>
+                <br></br>
+
+                <SubContainer>
+                    <Stack direction="row" gap={3} justifyContent='center' sx={{ flexWrap: 'wrap' }}>
+                        {linkList.map((item) => (
+                            <Button
+                                key={item.title}
+                                variant="contained"
+                                startIcon={item.icon}
+                                color="primary"
+                                onClick={() => {
+                                    window.open(item.link, "_blank").focus();
+                                }}
+                            >
+                                <Typography variant="h6">{item.title}</Typography>
+                            </Button>
+                        ))}
                     </Stack>
-                    <Typography variant="h4">
-                        The University of Tokyo [1], University of Oulu [2]
-                    </Typography>
                 </SubContainer>
 
-                <Typography variant="h4">IUI 2023 Open Science track</Typography>
+                
+                <Container></Container>
             </Container>
-
-            <Stack direction="row" gap={3}>
-                {linkList.map((item) => (
-                    <Button
-                        key={item.title}
-                        variant="contained"
-                        startIcon={item.icon}
-                        color="primary"
-                        onClick={() => {
-                            window.open(item.link, "_blank").focus();
-                        }}
-                    >
-                        <Typography variant="h6">{item.title}</Typography>
-                    </Button>
-                ))}
-            </Stack>
-            <Container></Container>
         </Wrapper>
     );
 };
