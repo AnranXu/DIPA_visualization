@@ -41,6 +41,8 @@ class Main extends Component {
                         imageURL={this.state.imageURL}
                         defaultBboxs={this.state.defaultBboxs}
                         manualBbox={this.state.manualBbox}
+                        width={window.innerWidth * 0.55 - 60}
+                        height={window.innerHeight * 0.7}
                     ></Canvas>
                 </Box>
                 <Toolbar
