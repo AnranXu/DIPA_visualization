@@ -155,8 +155,13 @@ const WelcomePage = () => {
                         ))}
                     </Stack>
                 </SubContainer>
-
-                
+                <Row>
+                    <Col>
+                        <Typography variant="body1" textAlign="center" sx={{ marginTop: 4 }}>
+                            "DIPA: An Image Dataset with Cross-cultural Privacy Concern Annotations" © 2024 by Anran Xu, Zhongyi Zhou, Kakeru Miyazaki, Ryo Yoshikawa, Simo Hosio, Koji Yatani is licensed under CC BY 4.0. To view a copy of this license, visit <MuiLink href="http://creativecommons.org/licenses/by/4.0/" underline="hover" target="_blank">http://creativecommons.org/licenses/by/4.0/</MuiLink>.
+                        </Typography>
+                    </Col>
+                </Row>                
                 <Container></Container>
             </Container>
         </Wrapper>
